@@ -1,4 +1,4 @@
-![alt text](https://github.com/Brandon225/timetrack/src/logo.png "reimagin8d")
+![alt text](https://github.com/Brandon225/timetrack/public/img/logo.png "reimagin8d")
 
 # TimeTrack - A time tracking React app
 
