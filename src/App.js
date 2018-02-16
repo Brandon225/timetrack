@@ -7,7 +7,9 @@ class App extends Component {
     state = {
         running: false,
         elapsedTime: 0,
-        previousTime: 0
+        previousTime: 0,
+        startTime: 'Jan 1 12:00AM',
+        description: ''
     }
 
     componentDidMount() {
@@ -23,8 +25,6 @@ class App extends Component {
     }
 
     onTick = () => {
-        console.log('onTick');
-
         if (this.state.running)
         {
             var now = Date.now();
@@ -36,10 +36,18 @@ class App extends Component {
     };
 
     onStart = () => {
+        
+        console.log(`start? ${start}`);
         console.log('onStart!');
+
+        const now = Date.now();
+        const start = new Date(now).toLocaleString();
+        console.log(`start ${start}`);
         this.setState({
             running: true,
-            previousTime: Date.now(),
+            previousTime: now,
+            startTime: start,
+            
         });
 
     };
@@ -73,11 +81,12 @@ class App extends Component {
                                 {/* <form className="form"> */}
                                     <div className="card-body">
                                     <h2 className="card-title text-center display-3">{displayTime}</h2>
-                                        <input type="hidden" value="0:00:00" />
+                                    {/* <p className="card-text text-muted">{this.state.startTime}</p> */}
+                                        <input type="hidden" value={displayTime} />
                                         
                                         <div className="form-group">
                                             <label className="card-title" htmlFor="start-time">Start Time: </label>
-                                            <input type="text" className="form-control" name="start-time" value="" disabled />
+                                        <input type="text" className="form-control" name="start-time" value={this.state.startTime} disabled />
                                         </div>
 
                                         <div className="form-group">
