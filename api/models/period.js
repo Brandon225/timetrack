@@ -19,7 +19,7 @@ const PeriodSchema = new Schema({
         type: String,
         required: true,
     }
-})
+});
 
 const Period = mongoose.model('Period', PeriodSchema);
 
