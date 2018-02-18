@@ -76,7 +76,7 @@ class App extends Component {
             <div className="App">
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
-                        <div className="col-4 mx-auto">
+                        <div className=" mx-auto">
                             <div className="card text-info border-info">
                                 {/* <form className="form"> */}
                                     <div className="card-body">
