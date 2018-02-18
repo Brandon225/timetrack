@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 const PeriodSchema = new Schema({
-    startTime: {
+    start_time: {
         type: Date,
         required: true,
     },

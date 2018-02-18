@@ -19,22 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // include routes
 var routes = require('./routes');
-app.use('/', routes);
-
-
-// app.get("/", (req, res, next) => {
-//     console.log(`Root directory!`);
-
-//     next();
-
-// });
-
-// app.get("/api/sessions", (req, res, next) => {
-//     console.log(`Get all sessions!`);
-
-//     next();
-
-// });
+app.use('/api', routes);
 
 // // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -51,11 +36,6 @@ app.use(function (err, req, res, next) {
     console.log(`Error! ${err} ${err.status} ${err.message}`);
     next(err);
 
-    // res.status(err.status || 500);
-    // res.render('error', {
-    //     message: err.message,
-    //     error: {}
-    // });
 });
 
 // listen on port 3000

@@ -2,15 +2,18 @@ const express = require('express');
 const router = express.Router();
 const Period = require('./models/period.js');
 
-// Get all periods
-router.get("/", (req, res) => {
-    console.log(`Root!`);
-    
-    // next();
 
-});
+// GET ROUTES
 
-router.get("/api/periods", (req, res, next) => {
+// GET /
+// Root directory
+// router.get("/", (req, res) => {
+//     console.log(`Root!`);
+// });
+
+// GET /api/periods
+// Route for getting periods
+router.get("/periods", (req, res) => {
     console.log(`Get all periods!`);
     Period.find((err, periods) => {
         if (err) return next(err);
@@ -18,12 +21,24 @@ router.get("/api/periods", (req, res, next) => {
         return res.json(periods);
     });
 
-    // Period.find({}).then(eachOne => {
-    //     if
-    //     return res.json(eachOne);
-    // });
+});
 
-    // next();
+// POST ROUTES
+
+// POST /periods
+// Route for creating periods
+router.post('/periods', (req, res, next) => {
+
+    console.log(`create period!`);
+
+    console.log(`req body start_time? ${req.body.start_time}`);
+
+    var period = new Period(req.body);
+    period.save((err, period) => {
+        if (err) return next(err);
+        res.status(201);
+        res.json(period);
+    });
 });
 
 module.exports = router;
