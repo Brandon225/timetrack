@@ -106,23 +106,23 @@ class App extends Component {
         // date.setSeconds(this.getSeconds); // specify value for SECONDS here
         // var displayTime = date.toISOString().substr(11, 8);
 
-        var toggleElement = this.state.elapsedTime > 0 ? 'd-inline' : 'd-none';
-        var btnClass = this.state.running ? 'btn-danger' : 'btn-success';
+        var btnClass = this.state.running ? 'btn-outline-danger' : 'btn-outline-success';
+        var btnText = this.state.running ? 'stop' : 'start';
         return (
             <div className="App">
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
-                        <div className=" mx-auto">
+                        <div className="mx-auto">
                             <div className="card text-info border-info">
                                 <div className="card-body">
                                     <h2 className="card-title text-center display-3">{this.displayTime()}</h2>
                                     <p className="card-text text-muted">{this.state.startTime}</p>
-                                    <button type="button" className={`btn btn-success ${btnClass}`} onClick={this.state.running ? this.onStop : this.onStart}>{this.state.running ? 'Stop' : 'Start'}</button>
+                                    <button type="button" title={btnText} className={`btn btn-lg ${btnClass}`} onClick={this.state.running ? this.onStop : this.onStart}>{btnText}</button>
 
-                                    <button type="button" className={`btn btn-warning ml-2 ${toggleElement}`} onClick={this.onReset}>Reset</button>
+                                    <button type="button" title="reset" className={`btn btn-outline-info btn-lg ml-2 ${this.state.elapsedTime > 0 ? 'd-inline-flex' : 'd-none'}`} onClick={this.onReset}><i className="material-icons">settings_backup_restore</i></button>
 
                                 </div>
-                                <div className={`card-footer bg-transparent border-info ${toggleElement}`}>
+                                <div className={`card-footer bg-info ${this.state.elapsedTime > 0 ? 'd-inline-block' : 'd-none'}`}>
                                     <SessionForm
                                         onSubmit={this.handleSubmit}
                                         hours={this.displayTime()}

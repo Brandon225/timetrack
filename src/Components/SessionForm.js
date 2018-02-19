@@ -29,7 +29,7 @@ export default class SessionForm extends Component {
                 <input type="hidden" name="start_time" value={this.props.startTime} />
                 <input type="hidden" name="paid" value={this.props.paid} />
                 <div className="form-group">
-                    <label htmlFor="description">Description</label>
+                    <label htmlFor="description" className="text-white">Description</label>
                     <textarea
                         className="form-control"
                         onChange={this.onDescriptionChange}
@@ -38,7 +38,7 @@ export default class SessionForm extends Component {
                         ref={(input) => this.description = input}
                         required />
                 </div>
-                <button type="submit" className="btn btn-info ml-2">Submit</button>
+                <button type="submit" title="submit" className="btn btn-light">submit</button>
             </form>
         );
     }
