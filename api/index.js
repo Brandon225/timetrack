@@ -7,7 +7,9 @@ const logger = require('morgan');
 const app = express();
 
 // mongodb connection
-mongoose.connect("mongodb://localhost:27017/timetrack_db");
+const url = process.env.MONGOLAB_URI;
+// const url = "mongodb://localhost:27017/timetrack_db;
+mongoose.connect(url);
 
 var db = mongoose.connection;
 // mongo error
@@ -39,7 +41,7 @@ app.use(function (err, req, res, next) {
 });
 
 // listen on port 3000
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log('Express app listening on port 3000');
 });
 

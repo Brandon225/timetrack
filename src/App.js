@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import SessionForm from './Components/SessionForm';
+import axios from 'axios';
 
 class App extends Component {
 
@@ -8,8 +10,8 @@ class App extends Component {
         running: false,
         elapsedTime: 0,
         previousTime: 0,
-        startTime: 'Jan 1 12:00AM',
-        description: ''
+        startTime: '',
+        paid: false
     }
 
     componentDidMount() {
@@ -37,7 +39,6 @@ class App extends Component {
 
     onStart = () => {
         
-        console.log(`start? ${start}`);
         console.log('onStart!');
 
         const now = Date.now();
@@ -46,8 +47,7 @@ class App extends Component {
         this.setState({
             running: true,
             previousTime: now,
-            startTime: start,
-            
+            startTime: start
         });
 
     };
@@ -62,49 +62,73 @@ class App extends Component {
         this.setState({
             elapsedTime: 0,
             previousTime: Date.now(),
+            startTime: '',
         });
     };
 
-    render() {
+    displayTime = () => {
         var seconds = Math.floor(this.state.elapsedTime / 1000);
-
         var date = new Date(null);
         date.setSeconds(seconds); // specify value for SECONDS here
-        var displayTime = date.toISOString().substr(11, 8);
+        return date.toISOString().substr(11, 8);
+    }
 
+    handleSubmit = (description) => {
+
+        console.log(`Handle Submit!`);
+
+        // stop the timer
+        this.onStop();
+
+        const data = {
+            start_time: this.state.startTime,
+            hours: this.displayTime(),
+            paid: this.state.paid,
+            description: description
+        }
+
+        // USE AXIOM TO POST DATA TO API
+        axios.post(`http://localhost:3000/api/periods`, data)
+            .then(response => {
+                console.log(`POST response? ${response}`);
+            })
+           .catch(error => {
+               console.log(`Error fetching and parsing data ${error}`);
+            });
+    }
+
+    render() {
+        // var seconds = Math.floor(this.state.elapsedTime / 1000);
+
+        // var date = new Date(null);
+        // date.setSeconds(this.getSeconds); // specify value for SECONDS here
+        // var displayTime = date.toISOString().substr(11, 8);
+
+        var toggleElement = this.state.elapsedTime > 0 ? 'd-inline' : 'd-none';
+        var btnClass = this.state.running ? 'btn-danger' : 'btn-success';
         return (
             <div className="App">
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
                         <div className=" mx-auto">
                             <div className="card text-info border-info">
-                                {/* <form className="form"> */}
-                                    <div className="card-body">
-                                    <h2 className="card-title text-center display-3">{displayTime}</h2>
-                                    {/* <p className="card-text text-muted">{this.state.startTime}</p> */}
-                                        <input type="hidden" value={displayTime} />
-                                        
-                                        <div className="form-group">
-                                            <label className="card-title" htmlFor="start-time">Start Time: </label>
-                                        <input type="text" className="form-control" name="start-time" value={this.state.startTime} disabled />
-                                        </div>
+                                <div className="card-body">
+                                    <h2 className="card-title text-center display-3">{this.displayTime()}</h2>
+                                    <p className="card-text text-muted">{this.state.startTime}</p>
+                                    <button type="button" className={`btn btn-success ${btnClass}`} onClick={this.state.running ? this.onStop : this.onStart}>{this.state.running ? 'Stop' : 'Start'}</button>
 
-                                        <div className="form-group">
-                                            <label className="card-title" htmlFor="start-time">Description: </label>
-                                            <textarea className="form-control" name="description"></textarea>
-                                        </div>
+                                    <button type="button" className={`btn btn-warning ml-2 ${toggleElement}`} onClick={this.onReset}>Reset</button>
 
-                                        <button type="button" className="btn btn-success" onClick={this.state.running ? this.onStop : this.onStart}>{this.state.running ? 'Stop' : 'Start'}</button>
-                                        
-                                        <button type="button" className="btn btn-danger ml-2" onClick={this.onReset}>Reset</button>
-
-                                        {/* <button type="submit" className="btn btn-info ml-2" disabled>Submit</button>                                 */}
-                                    </div>
-                                    {/* <div className="card-footer bg-transparent border-info">
-                                        <button type="button" className="btn btn-info">Start</button>
-                                        <button type="submit" className="btn btn-success">Submit</button>
-                                    </div> */}
-                                {/* </form> */}
+                                </div>
+                                <div className={`card-footer bg-transparent border-info ${toggleElement}`}>
+                                    <SessionForm
+                                        onSubmit={this.handleSubmit}
+                                        hours={this.displayTime()}
+                                        startTime={this.state.startTime}
+                                        paid={false}
+                                        description={''} />
+                                        {/* The description prop will only be needed in the future when SessionForm is loaded to edit data */}
+                                </div>
                             </div>
                             
                         </div>
