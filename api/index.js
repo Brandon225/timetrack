@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // include routes
 var routes = require('./routes');
-app.use('/api', routes);
+app.use('/', routes);
 
 // // catch 404 and forward to error handler
 app.use(function (req, res, next) {
