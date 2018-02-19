@@ -87,8 +87,10 @@ class App extends Component {
             description: description
         }
 
-        // USE AXIOM TO POST DATA TO API
-        axios.post(`http://localhost:3000/api/periods`, data)
+        const url = 'https://timetrack-reimagin8d.herokuapp.com/api/periods';
+
+        // USE AXIOS TO POST DATA TO API
+        axios.post(url, data)
             .then(response => {
                 console.log(`POST response? ${response}`);
             })

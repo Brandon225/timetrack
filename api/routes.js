@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Period = require('./models/period.js');
+const Period = require('./models/period');
 
 // GET Objects from Params
 router.param('pID', (req, res, next, id) => {
