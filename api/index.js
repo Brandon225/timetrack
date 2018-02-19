@@ -1,6 +1,9 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+var routes = require('./routes');
 // const logger = require('morgan');
 
 const app = express();
@@ -9,9 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// include routes
-var routes = require('./routes');
-app.use('/api', routes);
+
 
 // mongodb connection
 const url = process.env.MONGOLAB_URI;
@@ -23,6 +24,10 @@ var db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error: '));
 
+db.once("open", function () {
+    console.log("db connection successful");
+});
+
 // Allow API to be used by browser
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -33,6 +38,8 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+app.use('/api', routes);
 
 // // catch 404 and forward to error handler
 app.use(function (req, res, next) {
