@@ -24,7 +24,7 @@ router.get("/", (req, res, next) => {
 
 // GET /api/periods
 // Route for getting periods
-router.get("/api/periods", (req, res, next) => {
+router.get("/periods", (req, res, next) => {
     console.log(`Get all periods!`);
     Period.find((err, periods) => {
         if (err) return next(err);
@@ -37,7 +37,7 @@ router.get("/api/periods", (req, res, next) => {
 
 // POST /periods
 // Route for creating periods
-router.post('/api/periods', (req, res, next) => {
+router.post('/periods', (req, res, next) => {
     console.log(`create period!`);
     var period = new Period(req.body);
     period.save((err, period) => {
@@ -52,7 +52,7 @@ router.post('/api/periods', (req, res, next) => {
 
 // PUT /periods/:pID
 // Route for updating a specific period
-router.put('/api/periods/:pID', (req, res, next) => {
+router.put('/periods/:pID', (req, res, next) => {
     console.log(`Update period ${req.period}`);
 
     req.period.update(req.body)
@@ -66,7 +66,7 @@ router.put('/api/periods/:pID', (req, res, next) => {
 
 // DELETE /periods/:pID
 // Route for deleting a specific period
-router.delete('/api/periods/:pID', (req, res, next) => {
+router.delete('/periods/:pID', (req, res, next) => {
     console.log(`Delete period ${req.period}`);
 
     req.period.remove((err) => {
