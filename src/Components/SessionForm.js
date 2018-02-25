@@ -19,7 +19,8 @@ export default class SessionForm extends Component {
         this.props.handleSubmit(this.description.value);
 
         // this.props.onSearch(this.state.searchText);
-        e.currentTarget.reset();
+        this.setState({ descriptionText: '' });
+        // e.currentTarget.reset();
     }
 
     render() {

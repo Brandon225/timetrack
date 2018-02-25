@@ -76,8 +76,6 @@ export default class Timer extends Component {
     handleSubmit = (description) => 
     {
         console.log(`Timer handleSubmit`);
-        this.onStop();
-
         const data = {
             start_time: this.state.startTime,
             hours: this.displayTime(),
@@ -85,7 +83,16 @@ export default class Timer extends Component {
             description: description
         }
         
+        // this.onStop();
+        // this.onReset();
         this.props.handleSubmit(data);
+
+        this.setState({
+            running: false,
+            elapsedTime: 0,
+            previousTime: Date.now(),
+            startTime: '',
+        });
     };
     canSubmit = () => {
         return this.state.elapsedTime > 0;
@@ -93,7 +100,6 @@ export default class Timer extends Component {
 
     render() {
 
-        var btnText = this.state.running ? 'stop' : 'start';
         return (
             <div className="container">
                 <div className="row justify-content-center align-items-center">
