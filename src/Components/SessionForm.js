@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { PropTypes } from 'prop-types';
+import { PropTypes } from 'prop-types';
 
 export default class SessionForm extends Component {
 
@@ -16,7 +16,7 @@ export default class SessionForm extends Component {
         e.preventDefault();
 
         // Send data to the App state
-        this.props.onSubmit(this.description.value);
+        this.props.handleSubmit(this.description.value);
 
         // this.props.onSearch(this.state.searchText);
         e.currentTarget.reset();
@@ -45,8 +45,7 @@ export default class SessionForm extends Component {
 
 }
 
-// SessionForm.propTypes = {
-//     handleSubmit: PropTypes.func.isRequired,
-//     hours: PropTypes.string.isRequired,
-
-// }
+SessionForm.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    hours: PropTypes.string.isRequired
+}
