@@ -6,86 +6,41 @@ import Header from './Components/Header';
 import axios from 'axios';
 
 class App extends Component {
-
     state = {
-        paid: false
+        periods: []
     }
 
-    // componentDidMount() {
-    //     console.log(`componentDidMount`);
-    //     this.interval = setInterval(this.onTick, 100);
-    // }
+    componentDidMount() {
+        console.log(`componentDidMount`);
+        this.getPeriods();
+    }
 
-    // componentWillUnMount() {
-    //     console.log(`componentWillUnMount`);
-        
-    //     // cleanup interval
-    //     clearInterval(this.interval);
-    // }
+    getPeriods = () => {
 
-    // onTick = () => {
-    //     if (this.state.running)
-    //     {
-    //         var now = Date.now();
-    //         this.setState({
-    //             previousTime: now,
-    //             elapsedTime: this.state.elapsedTime + (now - this.state.previousTime),
-    //         });
-    //     }
-    // };
+        console.log(`getPeriods!`);
 
-    // onStart = () => {
-        
-    //     console.log('onStart!');
+        const url = 'https://timetrack-reimagin8d.herokuapp.com/api/periods';
 
-    //     const now = Date.now();
-    //     const start = new Date(now).toLocaleString();
-    //     console.log(`start ${start}`);
-    //     this.setState({
-    //         running: true,
-    //         previousTime: now,
-    //         startTime: start
-    //     });
+        // USE AXIOS TO POST DATA TO API
+        axios.get(url)
+            .then(response => {
+                console.log(`GET response? ${JSON.stringify(response)}`);
+                this.setState({
+                    periods: response.data
+                });
+            })
+            .catch(error => {
+                console.log(`Error fetching and parsing periods ${error}`);
 
-    // };
-
-    // onStop = () => {
-    //     console.log('onStop!');
-    //     this.setState({ running: false });
-    // };
-
-    // onReset = () => {
-    //     console.log('onReset!');
-    //     const now = Date.now();
-    //     const start = new Date(now).toLocaleString();
-    //     let startTime = this.state.running ? start : '';
-    //     this.setState({
-    //         elapsedTime: 0,
-    //         previousTime: Date.now(),
-    //         startTime: startTime,
-    //     });
-    // };
-
-    // displayTime = () => {
-    //     var seconds = Math.floor(this.state.elapsedTime / 1000);
-    //     var date = new Date(null);
-    //     date.setSeconds(seconds); // specify value for SECONDS here
-    //     return date.toISOString().substr(11, 8);
-    // }
+                this.setState({
+                    periods: [error]
+                });
+            });
+    };
 
     handleSubmit = (data) => {
 
         console.log(`App Handle Submit! ${data}`);
-
-        // stop the timer
-        // this.onStop();
-
-        // const data = {
-        //     start_time: this.state.startTime,
-        //     hours: this.displayTime(),
-        //     paid: this.state.paid,
-        //     description: description
-        // }
 
         const url = 'https://timetrack-reimagin8d.herokuapp.com/api/periods';
 
@@ -95,7 +50,7 @@ class App extends Component {
                 console.log(`POST response? ${response}`);
             })
            .catch(error => {
-               console.log(`Error fetching and parsing data ${error}`);
+               console.log(`Error posting ${error}`);
             });
     };
 
@@ -105,16 +60,8 @@ class App extends Component {
             <div className="App">
                 <Header />
                 <Main 
-                    // displayTime={this.displayTime()}
-                    // running={this.state.running}
-                    // btnClass={this.buttonData().class}
-                    // btnText={this.state.running ? 'stop' : 'start'}
-                    // handlePlayToggle={this.handlePlayToggle()}
-                    // canSubmit={this.state.elapsedTime > 0}
-                    // handleReset={this.onReset}
-                    handleSubmit={this.handleSubmit}
-                    // startTime={this.state.startTime}
-                    />
+                    handleSubmit={this.handleSubmit} 
+                    data={this.state.periods}/>
             </div>
             
         );

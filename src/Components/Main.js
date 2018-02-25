@@ -15,28 +15,19 @@ const Main = props => (
             <Route exact path='/' component={ () =>
                 <Timer 
                     handleSubmit={props.handleSubmit} />
-                // <Timer 
-                //     displayTime={props.displayTime}
-                //     running={props.running}
-                //     // btnClass={props.btnClass}z
-                //     // btnText={props.btnText}
-                //     handlePlayToggle={props.handlePlayToggle}
-                //     canSubmit={props.canSubmit}
-                //     handleReset={props.handleReset}
-                    // handleSubmit={props.handleSubmit}
-                //     startTime={props.startTime} />
-                
                 } 
             />
             <Route path='/list' component={() => 
-                <List />} 
+                <List 
+                    data={props.data} />} 
             />
         </Switch>
     </main>
 )
 
 Main.propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    data: PropTypes.array.isRequired
 }
 
 export default Main

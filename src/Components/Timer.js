@@ -82,11 +82,11 @@ export default class Timer extends Component {
             paid: this.state.paid,
             description: description
         }
-        
-        // this.onStop();
-        // this.onReset();
+
+        // Send the data to the parent
         this.props.handleSubmit(data);
 
+        // Reset time, date, and running
         this.setState({
             running: false,
             elapsedTime: 0,
@@ -94,6 +94,7 @@ export default class Timer extends Component {
             startTime: '',
         });
     };
+
     canSubmit = () => {
         return this.state.elapsedTime > 0;
     };
@@ -113,14 +114,12 @@ export default class Timer extends Component {
                                     :
                                     <button className='btn btn-lg btn-outline-danger'  onClick={this.onStart}>Start</button>
                                 }
-                                {/* <button type="button" title={btnText} className={`btn btn-lg ${btnClass}`} onClick={this.handlePlayToggle}>{btnText}</button> */}
 
                                 <button type="button" title="reset" className={`btn btn-outline-info btn-lg ml-2 d-inline-flex`} onClick={this.onReset} disabled={!this.canSubmit()}><i className="material-icons">settings_backup_restore</i></button>
                             </div>
                             <div className={`card-footer bg-info ${this.state.elapsedTime > 0 ? 'd-inline-block' : 'd-none'}`}>
                                 <SessionForm
                                     handleSubmit={this.handleSubmit}
-                                    // canSubmit={this.canSubmit()}
                                     hours={this.displayTime()}
                                     startTime={this.state.startTime}
                                     paid={false}
