@@ -13,7 +13,7 @@ const Period = props => {
                 <div className="card-body">
                     <PeriodHours 
                         isEditing={props.isEditing} 
-                        handleHourEdits={e => props.setHours(e.target.value)} >
+                        handleHourEdits={e => props.handleHourEdits(e.target.value)} >
                         {props.hours}
                     </PeriodHours>
                     {/* <h2 className="card-title text-center display-3">{props.hours}</h2> */}

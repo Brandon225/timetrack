@@ -15,7 +15,8 @@ const List = props =>
                 description={period.description}
                 handleUpdate={props.handleUpdate} 
                 isEditing={period.isEditing ? true : false}
-                handleToggleEditing={() => props.toggleEditing(period._id)}/>
+                handleToggleEditing={() => props.toggleEditing(period._id)}
+                handleHourEdits={text => props.setHours('hours', text, period._id)}/>
         );
     } else {
         console.log(`empty results!!`);
@@ -23,7 +24,7 @@ const List = props =>
     }
 
     return (
-    <div className="container">
+    <div className="container mt-5 pt-5">
         <div className="row">
             {periods}
         </div>

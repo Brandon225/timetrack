@@ -54,12 +54,14 @@ class App extends Component {
             });
     };
 
-    handleUpdate = (data) =>
+    handlePeriodUpdate = (period) =>
     {
-        const url = 'https://timetrack-reimagin8d.herokuapp.com/api/periods';
+        const url = `https://timetrack-reimagin8d.herokuapp.com/api/periods/${period._id}`;
+
+        console.log(`handlePeriodUpdate period? ${period} url? ${url}`);
 
         // USE AXIOS TO POST DATA TO API
-        axios.put(url, data)
+        axios.put(url, period)
             .then(response => {
                 console.log(`POST response? ${response}`);
             })
@@ -68,7 +70,44 @@ class App extends Component {
             });
     };
 
-    togglePeriodEditing = (property, id) => {
+    setPeriodProperty = (property, value, id) =>
+    {
+        
+        console.log(`setPeriodProperty property? ${property} value? ${value} id? ${id}`);
+        this.setState({
+            periods: this.state.periods.map(([period]) => {
+                console.log(`propert ${property} new value ${value} id ${id}`);
+                if (period.id === id) {
+
+                    const url = `https://timetrack-reimagin8d.herokuapp.com/api/periods/${period._id}`;
+
+                    period[property] = value;
+
+                    console.log(`handlePeriodUpdate period? ${period} url? ${url}`);
+
+                    // USE AXIOS TO POST DATA TO API
+                    axios.put(url, period)
+                        .then(response => {
+                            console.log(`POST response? ${response}`);
+                        })
+                        .catch(error => {
+                            console.log(`Error posting ${error}`);
+                        });
+
+                    return {
+                        ...period, // transfer all keys and values to the new period
+                        [property]: value // update the value of confirmed
+                    }
+                }
+                return period;
+            })
+        });
+
+        //
+
+    }
+
+    togglePeriodEditing = (id) => {
         console.log(`togglePeriodEditing ${id}`);
         this.setState({
             periods: this.state.periods.map((period) => {
@@ -76,7 +115,6 @@ class App extends Component {
                 if (id === period._id) {
                     console.log(`period['isEditing']? ${period.isEditing}`);
                     let isEditing = !period.isEditing ? true : false;
-                    console.log(`property ${property} curr value ${isEditing} id ${id}`);
                     return {
                         ...period, // transfer all keys and values to the new guest
                         isEditing: isEditing // update the value of editing
@@ -99,7 +137,8 @@ class App extends Component {
                 <Main 
                     handleSubmit={this.handleSubmit} 
                     data={this.state.periods}
-                    toggleEditing={this.toggleEditing}/>
+                    toggleEditing={this.toggleEditing}
+                    setHours={this.setPeriodProperty} />
             </div>
             
         );
