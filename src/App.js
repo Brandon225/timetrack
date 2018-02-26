@@ -54,6 +54,43 @@ class App extends Component {
             });
     };
 
+    handleUpdate = (data) =>
+    {
+        const url = 'https://timetrack-reimagin8d.herokuapp.com/api/periods';
+
+        // USE AXIOS TO POST DATA TO API
+        axios.put(url, data)
+            .then(response => {
+                console.log(`POST response? ${response}`);
+            })
+            .catch(error => {
+                console.log(`Error posting ${error}`);
+            });
+    };
+
+    togglePeriodEditing = (property, id) => {
+        console.log(`togglePeriodEditing ${id}`);
+        this.setState({
+            periods: this.state.periods.map((period) => {
+                console.log(`id? ${id} period.id? ${period._id}`);
+                if (id === period._id) {
+                    console.log(`period['isEditing']? ${period.isEditing}`);
+                    let isEditing = !period.isEditing ? true : false;
+                    console.log(`property ${property} curr value ${isEditing} id ${id}`);
+                    return {
+                        ...period, // transfer all keys and values to the new guest
+                        isEditing: isEditing // update the value of editing
+                    }
+                }
+                return period;
+            })
+        });
+    }
+    
+    toggleEditing = id => {
+        console.log(`toggleEditing ${id}`);
+        this.togglePeriodEditing('isEditing', id);
+    }
     render() {
 
         return (
@@ -61,7 +98,8 @@ class App extends Component {
                 <Header />
                 <Main 
                     handleSubmit={this.handleSubmit} 
-                    data={this.state.periods}/>
+                    data={this.state.periods}
+                    toggleEditing={this.toggleEditing}/>
             </div>
             
         );

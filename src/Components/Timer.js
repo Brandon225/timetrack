@@ -126,7 +126,6 @@ export default class Timer extends Component {
                                     description={''} />
                             </div>
                         </div>
-
                     </div>
 
                 </div>

@@ -19,7 +19,9 @@ const Main = props => (
             />
             <Route path='/list' component={() => 
                 <List 
-                    data={props.data} />} 
+                    data={props.data} 
+                    handleUpdate={props.handleUpdate}
+                    toggleEditing={props.toggleEditing} />} 
             />
         </Switch>
     </main>
@@ -27,7 +29,8 @@ const Main = props => (
 
 Main.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    toggleEditing: PropTypes.func.isRequired
 }
 
 export default Main

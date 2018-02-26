@@ -8,11 +8,14 @@ const List = props =>
     if (results.length) {
         periods = results.map(period =>
             <Period
-                key={period.id}
+                key={period._id}
                 hours={period.hours}
-                start_time={period.time_started}
+                start_time={period.start_time}
                 paid={period.paid}
-                description={period.description} />
+                description={period.description}
+                handleUpdate={props.handleUpdate} 
+                isEditing={period.isEditing ? true : false}
+                handleToggleEditing={() => props.toggleEditing(period._id)}/>
         );
     } else {
         console.log(`empty results!!`);
