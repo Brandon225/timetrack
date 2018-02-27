@@ -16,7 +16,8 @@ const List = props =>
                 handleUpdate={props.handleUpdate} 
                 isEditing={period.isEditing ? true : false}
                 handleToggleEditing={() => props.toggleEditing(period._id)}
-                handleHourEdits={text => props.setHours('hours', text, period._id)}/>
+                handleHourEdits={text => props.setHours(text, period._id)}
+                savePeriod={() => props.savePeriod(period)} />
         );
     } else {
         console.log(`empty results!!`);

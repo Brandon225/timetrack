@@ -54,8 +54,7 @@ class App extends Component {
             });
     };
 
-    handlePeriodUpdate = (period) =>
-    {
+    handlePeriodUpdate = (period) => {
         const url = `https://timetrack-reimagin8d.herokuapp.com/api/periods/${period._id}`;
 
         console.log(`handlePeriodUpdate period? ${period} url? ${url}`);
@@ -68,32 +67,38 @@ class App extends Component {
             .catch(error => {
                 console.log(`Error posting ${error}`);
             });
+        
+        if (period.isEditing)
+        {
+            this.toggleEditing(period._id);
+        }
     };
 
+    // setPeriodProperty = (property, value, id) => {
+
+    //     console.log(`setPeriodProperty property? ${property} value? ${value} id? ${id}`);
+    //     this.setState({
+    //         periods: this.state.periods.map(([period]) => {
+    //             console.log(`propert ${property} new value ${value} id ${id}`);
+    //             if (period.id === id) {
+    //                 return {
+    //                     ...period, // transfer all keys and values to the new period
+    //                     [property]: value // update the value of confirmed
+    //                 }
+    //             }
+    //             return period;
+    //         })
+    //     });
+
+    //     //
+
+    // };
+
     setPeriodProperty = (property, value, id) =>
-    {
-        
-        console.log(`setPeriodProperty property? ${property} value? ${value} id? ${id}`);
         this.setState({
-            periods: this.state.periods.map(([period]) => {
-                console.log(`propert ${property} new value ${value} id ${id}`);
-                if (period.id === id) {
-
-                    const url = `https://timetrack-reimagin8d.herokuapp.com/api/periods/${period._id}`;
-
-                    period[property] = value;
-
-                    console.log(`handlePeriodUpdate period? ${period} url? ${url}`);
-
-                    // USE AXIOS TO POST DATA TO API
-                    axios.put(url, period)
-                        .then(response => {
-                            console.log(`POST response? ${response}`);
-                        })
-                        .catch(error => {
-                            console.log(`Error posting ${error}`);
-                        });
-
+            periods: this.state.periods.map((period) => {
+                console.log(`property ${property} new value ${value} id ${id}`);
+                if (period._id === id) {
                     return {
                         ...period, // transfer all keys and values to the new period
                         [property]: value // update the value of confirmed
@@ -103,11 +108,7 @@ class App extends Component {
             })
         });
 
-        //
-
-    }
-
-    togglePeriodEditing = (id) => {
+    togglePeriodEditing = (property, id) => {
         console.log(`togglePeriodEditing ${id}`);
         this.setState({
             periods: this.state.periods.map((period) => {
@@ -115,8 +116,9 @@ class App extends Component {
                 if (id === period._id) {
                     console.log(`period['isEditing']? ${period.isEditing}`);
                     let isEditing = !period.isEditing ? true : false;
+                    console.log(`property ${property} curr value ${isEditing} id ${id}`);
                     return {
-                        ...period, // transfer all keys and values to the new guest
+                        ...period, // transfer all keys and values to the new period
                         isEditing: isEditing // update the value of editing
                     }
                 }
@@ -129,6 +131,10 @@ class App extends Component {
         console.log(`toggleEditing ${id}`);
         this.togglePeriodEditing('isEditing', id);
     }
+
+    setHours = (text, id) =>
+        this.setPeriodProperty('hours', text, id);
+
     render() {
 
         return (
@@ -138,7 +144,8 @@ class App extends Component {
                     handleSubmit={this.handleSubmit} 
                     data={this.state.periods}
                     toggleEditing={this.toggleEditing}
-                    setHours={this.setPeriodProperty} />
+                    setHours={this.setHours} 
+                    savePeriod={this.handlePeriodUpdate} />
             </div>
             
         );
