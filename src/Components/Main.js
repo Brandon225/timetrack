@@ -22,7 +22,8 @@ const Main = props => (
                     data={props.data} 
                     handleUpdate={props.handleUpdate}
                     toggleEditing={props.toggleEditing} 
-                    setHours={props.setHours} 
+                    // setHours={props.setHours}
+                    setProperty={props.setProperty}
                     savePeriod={props.savePeriod} />} 
             />
         </Switch>
@@ -33,7 +34,7 @@ Main.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired,
     toggleEditing: PropTypes.func.isRequired,
-    setHours: PropTypes.func.isRequired,
+    setProperty: PropTypes.func.isRequired,
     savePeriod: PropTypes.func.isRequired
 }
 

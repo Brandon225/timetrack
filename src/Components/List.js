@@ -9,6 +9,7 @@ const List = props =>
         periods = results.map(period =>
             <Period
                 key={period._id}
+                id={period._id}
                 hours={period.hours}
                 start_time={period.start_time}
                 paid={period.paid}
@@ -16,8 +17,9 @@ const List = props =>
                 handleUpdate={props.handleUpdate} 
                 isEditing={period.isEditing ? true : false}
                 handleToggleEditing={() => props.toggleEditing(period._id)}
-                handleHourEdits={text => props.setHours(text, period._id)}
-                savePeriod={() => props.savePeriod(period)} />
+                // handleHourEdits={text => props.setHours(text, period._id)}
+                handleEdits={(type, text) => props.setProperty(type, text, period._id)}
+                handleSubmit={() => props.savePeriod(period)} />
         );
     } else {
         console.log(`empty results!!`);

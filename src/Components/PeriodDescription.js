@@ -9,7 +9,7 @@ const PeriodHours = props => {
             <input 
                 type="text" 
                 value={props.children} 
-                onChange={props.handleHourEdits}
+                onChange={props.handleEdits}
                 className="form-control"/>
         ); 
     }
@@ -17,15 +17,17 @@ const PeriodHours = props => {
     // console.log(`GuestName is NOT Editing!`);
     
     return (
-        <span className="text-center display-3">
+        <p className="card-text text-light">
+            <span className="font-weight-bold text-dark">{props.type}:</span>
+            <br />
             {props.children}
-        </span>
+        </p>
     ); 
 };
 
 PeriodHours.propTypes = {
     isEditing: PropTypes.bool.isRequired,
-    handleHourEdits: PropTypes.func.isRequired
+    handleEdits: PropTypes.func.isRequired
 }
 
 export default PeriodHours;

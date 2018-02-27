@@ -1,34 +1,44 @@
 import React from 'react';
 import Moment from 'moment';
-import SessionForm from './SessionForm';
-import PeriodHours from './PeriodHours';
+import PeriodForm from './PeriodForm';
 
-const Period = props => {
+const Period  = props => {
 
-    console.log(`props paid? ${props.paid}`);
     const startTime = Moment(props.start_time).format('MMMM Do YYYY, h:mm:ss a');
+    const { id, savePeriod, handleSubmit, isEditing, handleToggleEditing, handleRemove, hours, description, paid } = props;
+    if (isEditing) 
+    {
+        return (
+            // let InitializeFromStateForm = reduxForm({
+            //     form: 'initializeFromState',
+            //     enableReinitialize: true // this is needed!!
+            // })(UserEdit)
+            <PeriodForm 
+                id={id}
+                handleSubmit={handleSubmit} 
+                handleToggleEditing={handleToggleEditing} 
+                hours={hours}
+                start_time={startTime}
+                description={description}
+                paid={paid}
+                 />
+        )
+    } 
     return (
         <div className="col-sm-4 my-2">
             <div className="card bg-info text-white">
                 <div className="card-body">
-                    <PeriodHours 
-                        isEditing={props.isEditing} 
-                        handleHourEdits={e => props.handleHourEdits(e.target.value)}>
-                        {props.hours}
-                    </PeriodHours>
-                    {/* <h2 className="card-title text-center display-3">{props.hours}</h2> */}
+                    
+                    <h2 className="card-title text-center display-3">{hours}</h2>
                     <p className="card-text text-light"><span className="font-weight-bold text-dark">start time:</span><br/>{startTime}</p>
-                    <p className="card-text text-light"><span className="font-weight-bold text-dark">description:</span><br />{props.description}</p>
-                    <p className="card-text text-light"><span className="font-weight-bold text-dark">paid:</span> {props.paid ? 'yes' : 'no'}</p>
+                    <p className="card-text text-light"><span className="font-weight-bold text-dark">description:</span><br />{description}</p>
+
+                    <p className="card-text text-light"><span className="font-weight-bold text-dark">paid:</span> {paid ? 'yes' : 'no'}</p>
                     
                 </div>
                 <div className='card-footer d-inline-block'>
-                    {props.isEditing ?
-                        <button className='btn btn-success' onClick={props.savePeriod}>save</button>
-                        :
-                        <button className='btn btn-warning' onClick={props.handleToggleEditing}>edit</button>
-                    }
-                    <button className={`btn btn-danger ml-2 d-inline-flex`} onClick={props.handleRemove}>remove</button>
+                    <button className='btn btn-warning' onClick={handleToggleEditing}>edit</button>
+                    <button className={`btn btn-danger ml-2 d-inline-flex`} onClick={handleRemove}>remove</button>
                 </div>
             </div>      
             {/* <ul className="list-group">

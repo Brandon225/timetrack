@@ -4,6 +4,7 @@ import './App.css';
 import Main from './Components/Main';
 import Header from './Components/Header';
 import axios from 'axios';
+// import formReducer from './Reducers/FormReducer';
 
 class App extends Component {
     state = {
@@ -132,8 +133,11 @@ class App extends Component {
         this.togglePeriodEditing('isEditing', id);
     }
 
-    setHours = (text, id) =>
-        this.setPeriodProperty('hours', text, id);
+    setProperty = (type, text, id) =>
+    {
+        console.log(`setProperty! ${type} ${text} ${id}`);
+        this.setPeriodProperty(type, text, id);
+    }
 
     render() {
 
@@ -144,7 +148,8 @@ class App extends Component {
                     handleSubmit={this.handleSubmit} 
                     data={this.state.periods}
                     toggleEditing={this.toggleEditing}
-                    setHours={this.setHours} 
+                    // setHours={this.setHours} 
+                    setProperty={this.setProperty}
                     savePeriod={this.handlePeriodUpdate} />
             </div>
             
