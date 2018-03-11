@@ -5,7 +5,7 @@ import PeriodForm from './PeriodForm';
 const Period  = props => {
 
     const startTime = Moment(props.start_time).format('MMMM Do YYYY, h:mm:ss a');
-    const { id, savePeriod, handleSubmit, isEditing, handleToggleEditing, handleRemove, hours, description, paid } = props;
+    const { id, isEditing, handleToggleEditing, hours, description, paid } = props;
     if (isEditing) 
     {
         return (
@@ -15,10 +15,10 @@ const Period  = props => {
             // })(UserEdit)
             <PeriodForm 
                 id={id}
-                handleSubmit={handleSubmit} 
                 handleToggleEditing={handleToggleEditing} 
                 hours={hours}
-                start_time={startTime}
+                start_time={props.start_time}
+                display_time={startTime}
                 description={description}
                 paid={paid}
                  />
@@ -38,7 +38,7 @@ const Period  = props => {
                 </div>
                 <div className='card-footer d-inline-block'>
                     <button className='btn btn-warning' onClick={handleToggleEditing}>edit</button>
-                    <button className={`btn btn-danger ml-2 d-inline-flex`} onClick={handleRemove}>remove</button>
+                    <button className={`btn btn-danger ml-2 d-inline-flex`} >remove</button>
                 </div>
             </div>      
             {/* <ul className="list-group">

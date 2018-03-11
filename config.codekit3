@@ -7,7 +7,7 @@
 		"uuidString": "AAF0BD7A-48A6-4C54-BCD9-F5F37A915357"
 		}
 	],
-"creatorBuild": "26268",
+"creatorBuild": "26330",
 "files": {
 	"\/.gitignore": {
 		"cB": 0,
@@ -212,12 +212,42 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/src\/Components\/PeriodHours.js": {
+	"\/src\/Components\/PeriodDescription.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/src\/Components\/PeriodDescription-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/src\/Components\/PeriodForm.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 1,
+		"oAP": "\/src\/Components\/PeriodForm-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/src\/Components\/PeriodHours.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
 		"oAP": "\/src\/Components\/PeriodHours-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/src\/Components\/PeriodInput.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/src\/Components\/PeriodInput-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -276,7 +306,7 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/src\/registerServiceWorker-min.js",
 		"oF": 0,
 		"sC": 3,

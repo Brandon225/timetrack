@@ -16,7 +16,7 @@ export default class SessionForm extends Component {
         e.preventDefault();
 
         // Send data to the App state
-        this.props.handleSubmit(this.form.serialize());
+        this.props.handleSubmit(this.description.value);
 
         // this.props.onSearch(this.state.searchText);
         this.setState({ descriptionText: '' });
@@ -25,7 +25,7 @@ export default class SessionForm extends Component {
 
     render() {
         return (
-            <form ref={(input) => this.form = input} className="form" onSubmit={this.handleSubmit} >
+            <form className="form" onSubmit={this.handleSubmit} >
                 <input type="hidden" name="hours" value={this.props.hours} />
                 <input type="hidden" name="start_time" value={this.props.startTime} />
                 <input type="hidden" name="paid" value={this.props.paid} />

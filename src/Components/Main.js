@@ -21,10 +21,7 @@ const Main = props => (
                 <List 
                     data={props.data} 
                     handleUpdate={props.handleUpdate}
-                    toggleEditing={props.toggleEditing} 
-                    // setHours={props.setHours}
-                    setProperty={props.setProperty}
-                    savePeriod={props.savePeriod} />} 
+                    toggleEditing={props.toggleEditing} />} 
             />
         </Switch>
     </main>
@@ -33,9 +30,7 @@ const Main = props => (
 Main.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired,
-    toggleEditing: PropTypes.func.isRequired,
-    setProperty: PropTypes.func.isRequired,
-    savePeriod: PropTypes.func.isRequired
+    toggleEditing: PropTypes.func.isRequired
 }
 
 export default Main

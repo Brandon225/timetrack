@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { Field, reduxForm } from 'redux-form'
 import axios from 'axios';
 
 class PeriodForm extends Component 
@@ -15,12 +14,15 @@ class PeriodForm extends Component
     onChange = (e) => {
         // Because we named the inputs to match their corresponding values in state, it's
         // super easy to update the state
-        const state = this.state
-        state[e.target.name] = e.target.value;
-        this.setState(state);
+        console.log(`e.target.name? ${e.target.name} ${e.target.value}`);
+        // const state = this.state;
+        // state[e.target.name] = e.target.value;
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
-    handleSubmit = e => {
+    onSubmit = e => {
         e.preventDefault();
 
         const url = `https://timetrack-reimagin8d.herokuapp.com/api/periods/${this.props.id}`;
@@ -28,21 +30,23 @@ class PeriodForm extends Component
         // console.log(`handlePeriodUpdate url? ${url}`);
 
         const data = {
+            _id: this.props.id,
             hours: this.state.hours,
-            start_time: this.state.start_time,
+            start_time: new Date(this.state.start_time).toLocaleString(),
             paid: this.state.paid,
             description: this.state.description
         }
 
+        console.log(`data to save? ${data}`);
         const state = this.state;
 
         // USE AXIOS TO POST DATA TO API
         axios.put(url, data)
             .then(response => {
-                console.log(`POST response? ${response}`);
+                console.log(`POST response? ${JSON.stringify(response)}`);
                 state['error'] = false;
                 this.setState(state);
-                this.props.handleToggleEditing;
+                this.props.handleToggleEditing();
             })
             .catch(error => {
                 console.log(`Error posting ${error}`);
@@ -54,12 +58,12 @@ class PeriodForm extends Component
 
 
     render () {
-        const { id, handleSubmit, handleToggleEditing } = this.props;
-        const { hours, start_time, description, paid } = this.state;
+        const { id, handleToggleEditing } = this.props;
+        let { hours, start_time, description, paid } = this.state;
 
         return(
             <div className="col-sm-4 my-2">
-                <form ref={(input) => this.form = input} onSubmit={this.handleSubmit} method="PUT">
+                <form ref={(input) => this.form = input} onSubmit={this.onSubmit} method="PUT">
                     <div className="card bg-info text-white">
                         <div className={this.state.error ? 'card-header d-block' : 'd-none'}>
                             <p className="card-text text-warning">Uh Oh! Couldn't save changes. Please try again.</p>
@@ -71,7 +75,7 @@ class PeriodForm extends Component
                             </div>
                             <div className="form-group">
                                 <label htmlFor="start_time" className="font-weight-bold text-dark">start time:</label>
-                                <input className="form-control" name="start_time" type="text" value={start_time} onChange={this.onChange} required />
+                                <input className="form-control" name="start_time" type="text" value={this.props.display_time} onChange={this.onChange} required />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="description" className="font-weight-bold text-dark">description</label>
@@ -79,16 +83,16 @@ class PeriodForm extends Component
                             </div>
                             <label className="font-weight-bold text-dark">paid?</label><br />
                             <div className="form-check form-check-inline">
-                                <input className="form-check-input" name="paid" id="paid-yes" type="radio" value="true" onChange={this.onChange} />
+                                <input className="form-check-input" name="paid" id="paid-yes" type="radio" value="true" onChange={this.onChange} checked={paid===true}/>
                                 <label className="form-check-label" htmlFor="paid-yes">Yes</label>
                             </div>
                             <div className="form-check form-check-inline">
-                                <input className="form-check-input" name="paid" id="paid-no" type="radio" value="false" onChange={this.onChange} />
+                                <input className="form-check-input" name="paid" id="paid-no" type="radio" value="false" onChange={this.onChange} checked={paid===false}/>
                                 <label className="form-check-label" htmlFor="paid-no">No</label>
                             </div>
                         </div>
                         <div className='card-footer d-inline-block'>
-                            <button className="btn btn-success" type="submit">save</button>
+                            <button className="btn btn-success" type="submit" onClick={this.onSubmit}>save</button>
                             <button className="btn btn-danger ml-2" type="button" onClick={handleToggleEditing}>cancel</button>
                         </div>
                     </div>

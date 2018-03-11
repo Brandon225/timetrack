@@ -73,15 +73,18 @@ export default class Timer extends Component {
         return date.toISOString().substr(11, 8);
     };
 
-    handleSubmit = (description) => 
+    handleSubmit = (description) =>
     {
-        console.log(`Timer handleSubmit`);
+        console.log(`TIMER handleSubmit desc? ${description}`);
+
         const data = {
             start_time: this.state.startTime,
             hours: this.displayTime(),
             paid: this.state.paid,
             description: description
         }
+
+        console.log(`TIMER handleSubmit ${this.state.startTime} - ${this.displayTime()} - ${this.state.paid} - ${description}`);
 
         // Send the data to the parent
         this.props.handleSubmit(data);

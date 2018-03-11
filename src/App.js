@@ -76,7 +76,6 @@ class App extends Component {
     };
 
     // setPeriodProperty = (property, value, id) => {
-
     //     console.log(`setPeriodProperty property? ${property} value? ${value} id? ${id}`);
     //     this.setState({
     //         periods: this.state.periods.map(([period]) => {
@@ -92,7 +91,6 @@ class App extends Component {
     //     });
 
     //     //
-
     // };
 
     setPeriodProperty = (property, value, id) =>
@@ -147,10 +145,7 @@ class App extends Component {
                 <Main 
                     handleSubmit={this.handleSubmit} 
                     data={this.state.periods}
-                    toggleEditing={this.toggleEditing}
-                    // setHours={this.setHours} 
-                    setProperty={this.setProperty}
-                    savePeriod={this.handlePeriodUpdate} />
+                    toggleEditing={this.toggleEditing}/>
             </div>
             
         );
